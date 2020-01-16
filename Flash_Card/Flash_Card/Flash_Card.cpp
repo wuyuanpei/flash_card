@@ -15,13 +15,30 @@ word* list;
 int count_lines;
 
 void readfile();
+void select_mode();
 void flash();
+void mc();
+
 int main()
 {
 	readfile();
-	flash();
+	select_mode();
 }
-
+void select_mode() {
+	printf("\t\t     Flash Card\n");
+	printf("\t\t  Developed by RW\n\n");
+	printf("\ta: random words\n");
+	printf("\ts: multiple choices\n");
+	char input1 = _getch();
+	if (input1 == 'a') {
+		system("cls");
+		flash();
+	}
+	else {
+		system("cls");
+		mc();
+	}
+}
 void readfile() {
 	FILE* fp;
 	char buf[256];
@@ -77,12 +94,65 @@ void flash() {
 		}
 		printf("%s\n",list[idx].English);
 		char input1 = _getch();
-		if (input1 == 'z') {
+		if (input1 == 'a') {
 			system("color A");
 		}
 		else {
 			system("color C");
 		}
+		int len_C = strlen(list[idx].Chinese);
+		printf("\n\n");
+		for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
+			printf(" ");
+		}
+		printf("%s\n", list[idx].Chinese);
+		char input2 = _getch();
+		system("cls");
+		system("color 7");
+	}
+}
+
+void mc() {
+	srand((unsigned)time(NULL));
+	while (1) {
+		int idx = rand() % count_lines;
+		int len_E = strlen(list[idx].English);
+		printf("\n\n\n");
+		for (int i = 0; i < 26 - ((len_E + 1) >> 1); i++) {
+			printf(" ");
+		}
+		printf("%s\n\n", list[idx].English);
+		int a, b, c;
+		do {
+			a = rand() % count_lines;
+			b = rand() % count_lines;
+			c = rand() % count_lines;
+		} while (a == b || a == c || b == c || a == idx || b == idx || c == idx);
+		int position = rand() % 4;
+		int ids[] = { a,b,c };
+		char hints[] = {'a','s','d','f'};
+		int next = 0;
+		for (int i = 0; i < 4; i++) {
+			if (i == position) {
+				printf("\t%c: %s\n",hints[i],list[idx].Chinese);
+			}
+			else {
+				printf("\t%c: %s\n", hints[i], list[ids[next++]].Chinese);
+			}
+		}
+		char input1 = _getch();
+		if (input1 == hints[position]) {
+			system("color A");
+		}
+		else {
+			system("color C");
+		}
+		system("cls");
+		printf("\n\n\n\n");
+		for (int i = 0; i < 26 - ((len_E + 1) >> 1); i++) {
+			printf(" ");
+		}
+		printf("%s\n", list[idx].English);
 		int len_C = strlen(list[idx].Chinese);
 		printf("\n\n");
 		for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
