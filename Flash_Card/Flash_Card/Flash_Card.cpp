@@ -25,7 +25,7 @@ int main()
 	select_mode();
 }
 void select_mode() {
-	printf("\t\t     Flash Card\n");
+	printf("\t       Flash Card (%d words)\n",count_lines);
 	printf("\t\t  Developed by RW\n\n");
 	printf("\ta: random words\n");
 	printf("\ts: multiple choices\n");
