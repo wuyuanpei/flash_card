@@ -17,6 +17,7 @@ int count_lines;
 void readfile();
 void select_mode();
 void flash();
+void dictionary();
 void mc();
 
 int main()
@@ -29,14 +30,19 @@ void select_mode() {
 	printf("\t\t  Developed by RW\n\n");
 	printf("\ta: random words\n");
 	printf("\ts: multiple choices\n");
+	printf("\td: dictionary\n");
 	char input1 = _getch();
 	if (input1 == 'a') {
 		system("cls");
 		flash();
 	}
-	else {
+	else if (input1== 's'){
 		system("cls");
 		mc();
+	}
+	else {
+		system("cls");
+		dictionary();
 	}
 }
 void readfile() {
@@ -85,10 +91,38 @@ void readfile() {
 
 void flash() {
 	srand((unsigned)time(NULL));
-	while(1){
+	while (1) {
 		int idx = rand() % count_lines;
 		int len_E = strlen(list[idx].English);
 		printf("\n\n\n\n");
+		for (int i = 0; i < 26 - ((len_E + 1) >> 1); i++) {
+			printf(" ");
+		}
+		printf("%s\n", list[idx].English);
+		char input1 = _getch();
+		if (input1 == 'a') {
+			system("color A");
+		}
+		else {
+			system("color C");
+		}
+		int len_C = strlen(list[idx].Chinese);
+		printf("\n\n");
+		for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
+			printf(" ");
+		}
+		printf("%s\n", list[idx].Chinese);
+		char input2 = _getch();
+		system("cls");
+		system("color 7");
+	}
+}
+void dictionary() {
+	srand((unsigned)time(NULL));
+	while(1){
+		int idx = rand() % count_lines;
+		int len_E = strlen(list[idx].English);
+		printf("\n");
 		for (int i = 0; i < 26 - ((len_E + 1) >> 1); i++) {
 			printf(" ");
 		}
@@ -101,7 +135,7 @@ void flash() {
 			system("color C");
 		}
 		//int len_C = strlen(list[idx].Chinese);
-		printf("\n\n");
+		printf("\n");
 		//for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
 		//	printf(" ");
 		//}

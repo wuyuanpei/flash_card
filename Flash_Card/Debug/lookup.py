@@ -11,6 +11,8 @@ def readDic():
 def lookWord(word):
 	for v in range(0,len(lines)-1):
 		if word==lines[v]:
+			if len(lines[v+1]) > 400:
+				lines[v+1] = lines[v+1][0:lines[v+1].find(' ',400)] + "..."
 			print(lines[v+1])
 			return
 	print("No result found in dictionary");
