@@ -100,12 +100,15 @@ void flash() {
 		else {
 			system("color C");
 		}
-		int len_C = strlen(list[idx].Chinese);
+		//int len_C = strlen(list[idx].Chinese);
 		printf("\n\n");
-		for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
-			printf(" ");
-		}
-		printf("%s\n", list[idx].Chinese);
+		//for (int i = 0; i < 26 - ((len_C + 1) >> 1); i++) {
+		//	printf(" ");
+		//}
+		//printf("%s\n", list[idx].Chinese);
+		char buf[128];
+		sprintf_s(buf, "lookup.py %s", list[idx].English);
+		system(buf);
 		char input2 = _getch();
 		system("cls");
 		system("color 7");
